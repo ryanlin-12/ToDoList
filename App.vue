@@ -7,19 +7,24 @@
 
     <main>
       <nuxt />
+      <Main />
     </main>
 
     <footer>
       <p>&copy; 2025 My Nuxt.js App</p>
     </footer>
-    
+
   </div>
 </template>
 
 <script>
-export default {
-  name: "App",
-};
+  import Main from "./Main.vue";
+  export default {
+    name: "App",
+    components: {
+      Main,
+    },
+  };
 </script>
 
 <style>
@@ -44,4 +49,9 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+main {
+  padding: 1rem;
+}
+
 </style>
