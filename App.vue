@@ -1,14 +1,18 @@
 <template>
   <div id="app">
+
     <header>
       <h1>Welcome to Ryan Nuxt.js App</h1>
     </header>
+
     <main>
       <nuxt />
     </main>
+
     <footer>
       <p>&copy; 2025 My Nuxt.js App</p>
     </footer>
+    
   </div>
 </template>
 
