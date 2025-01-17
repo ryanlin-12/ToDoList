@@ -1,8 +1,8 @@
 <template>
-    <div class="task">
-        <input type="checkbox" v-model="task.completed" @change="toggleTask" />
-        <span :class="{ completed: task.completed }">{{ task.title }}</span>
-        <button @click="removeTask">X</button>
+    <div class="m-2 p-2 bg-gray-200 rounded flex items-center">
+        <input type="checkbox" v-model="task.completed" @change="toggleTask" class="mr-2" />
+        <span :class="{ completed: task.completed }" class="flex-grow break-words">{{ task.title }}</span>
+        <button @click="removeTask" class="px-2 py-1 bg-red-600 text-white rounded ml-2 hover:bg-red-900">Remove</button>
     </div>
 </template>
 
@@ -27,25 +27,7 @@ export default {
 </script>
 
 <style scoped>
-template {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0.5rem 0;
-    width: 50%;
-    background-color: #444;
-}
 .completed {
     color: #aaaaaa;
-}
-.task {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0.5rem 0;
-}
-.task button {
-    border: 0;
-    background: 0;
 }
 </style>

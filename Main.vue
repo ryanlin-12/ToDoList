@@ -7,9 +7,9 @@
         </div>
 
         <!-- 任務列表 -->
-        <div v-if="tasks.length">
+        <div v-if="tasks.length" style="text-align: left;">
             <Task v-for="task in tasks" :key="task.id" :task="task" @toggle-task="toggleTask"
-                @remove-task="removeTask" />
+            @remove-task="removeTask" />
         </div>
         <p v-else>No tasks yet. Add one above!</p>
     </div>
