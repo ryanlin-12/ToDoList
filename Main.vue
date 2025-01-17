@@ -44,9 +44,9 @@ export default {
             this.tasks = this.tasks.map((task) => {
                 if (task.id === taskToToggle.id) {
                     if (!task.completed) {
-                        task.completed = false;
-                    } else {
                         task.completed = true;
+                    } else {
+                        task.completed = false;
                     }
                 }
                 return task;
