@@ -51,6 +51,7 @@ footer {
 }
 
 main {
+  margin: 0 30%;
   padding: 1rem;
 }
 

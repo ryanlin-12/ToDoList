@@ -7,11 +7,10 @@
         </div>
 
         <!-- 任務列表 -->
-        <div v-if="tasks.length" style="text-align: left;">
-            <Task v-for="task in tasks" :key="task.id" :task="task" @toggle-task="toggleTask"
-            @remove-task="removeTask" />
+        <div v-if="tasks.length" class="mt-4">
+            <Task v-for="task in tasks" :key="task.id" :task="task" @toggle-task="toggleTask" @remove-task="removeTask" />
         </div>
-        <p v-else>No tasks yet. Add one above!</p>
+        <p v-else class="mt-4">No tasks yet. Add one above!</p>
     </div>
 </template>
 
@@ -66,7 +65,28 @@ export default {
 </script>
 
 <style scoped>
-.completed {
-    text-decoration: line-through;
-}
+    input[type="text"] {
+        padding: 0.5rem;
+        width: 70%;
+        margin-right: 0.5rem;
+        background-color: #eee;
+        border-radius: 20px;
+    }
+    input[type="text"]:focus {
+        outline: none;
+    }
+    ::placeholder {
+        color: #ccc;
+    }
+    button {
+        padding: 0.5rem 1rem;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
 </style>
