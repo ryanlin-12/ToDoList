@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
+  app: {
+    baseURL: '/ToDoList/', // 如果部署在子目錄，設置為子目錄名稱
+  },
 
   postcss: {
     plugins: {
