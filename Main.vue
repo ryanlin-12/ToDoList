@@ -2,13 +2,27 @@
     <div>
         <!-- 添加任務的輸入框 -->
         <div>
-            <input type="text" v-model="newTask" @keyup.enter="addTask" placeholder="Enter a new task" />
-            <button @click="addTask">Add Task</button>
+            <input type="text" v-model="newTask" @keyup.enter="addTask" placeholder="Enter a new task" class="shadow-md" />
+            <button @click="addTask" class="shadow-md">Add Task</button>
         </div>
 
-        <!-- 任務列表 -->
-        <div v-if="tasks.length" class="mt-4">
-            <Task v-for="task in tasks" :key="task.id" :task="task" @toggle-task="toggleTask" @remove-task="removeTask" />
+        <!-- 任務列表部分 -->
+        <div v-if="tasks.length" class="mt-4">            
+            <Task 
+                v-for="task in tasks" 
+                :key="task.id" 
+                :task="task" 
+                @toggle-task="toggleTask" 
+                @remove-task="removeTask" 
+            />
+            <!-- 新增：只在有已完成任務時顯示清除按鈕 -->
+            <button 
+                v-if="hasCompletedTasks" 
+                @click="removeCompletedTasks"
+                class="clear-completed-btn"
+            >
+                Clear Completed Tasks
+            </button>
         </div>
         <p v-else class="mt-4">No tasks yet. Add one above!</p>
     </div>
@@ -28,6 +42,13 @@ export default {
             newTask: "", // 存儲新任務的輸入內容
         };
     },
+
+    computed: {
+        hasCompletedTasks() {
+            return this.tasks.some(task => task.completed);
+        }
+    },
+
     methods: {
         addTask() {
             if (this.newTask.trim() === "") return;
@@ -60,7 +81,10 @@ export default {
             this.tasks = this.tasks.filter((task) => task.id !== taskToRemove.id);
             console.log(this.tasks);
         },
-    },
+        removeCompletedTasks() {
+            this.tasks = this.tasks.filter(task => !task.completed);
+        }
+    }
 };
 </script>
 
@@ -88,5 +112,12 @@ export default {
     }
     button:hover {
         background-color: #0056b3;
+    }
+    .clear-completed-btn {
+    margin: 1rem 0;
+    background-color: #dc3545;
+    }
+    .clear-completed-btn:hover {
+        background-color: #c82333;
     }
 </style>
