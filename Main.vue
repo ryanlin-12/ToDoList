@@ -1,5 +1,13 @@
 <template>
-    <div>
+    <div 
+        :class="{
+            'bg-white': !themeStore.isDarkMode, 
+            'bg-gray-600': themeStore.isDarkMode,
+            'text-black': !themeStore.isDarkMode,
+            'text-white': themeStore.isDarkMode
+        }" 
+        class="shadow-lg rounded-xl p-6 w-1/2 mx-auto mt-8"
+    >
         <!-- 添加任務的輸入框 -->
         <div>
             <input 
@@ -7,17 +15,21 @@
                 v-model="newTask" 
                 @keyup.enter="addTask" 
                 placeholder="Enter a new task"
-                class="shadow-md p-2 mr-2 bg-gray-200 rounded-full focus:outline-none placeholder-gray-400 w-3/4"
+                :class="{'bg-gray-200': !themeStore.isDarkMode, 'bg-gray-700 text-white placeholder-gray-400': themeStore.isDarkMode}"
+                class="shadow-md p-2 mr-2 rounded-full focus:outline-none w-3/4"
             />
             <button 
                 @click="addTask" 
-                class="shadow-md p-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 w-1/5">
+                :class="{'bg-blue-500': !themeStore.isDarkMode, 'bg-blue-700': themeStore.isDarkMode}"
+                class="shadow-md p-2 text-white rounded-full hover:bg-blue-700 w-1/5">
                 Add Task
             </button>
         </div>
 
+        <hr class="mt-4">
+
         <!-- 任務列表部分 -->
-        <div v-if="tasks.length" class="mt-4">
+        <div v-if="tasks.length" class="mt-1">
             <Task 
                 v-for="task in tasks" 
                 :key="task.id" 
@@ -29,16 +41,23 @@
             <button 
                 v-if="hasCompletedTasks" 
                 @click="removeCompletedTasks" 
-                class="mt-4 bg-red-600 text-white py-2 px-4 rounded-full hover:bg-red-700 shadow-md">
+                :class="{'bg-red-600': !themeStore.isDarkMode, 'bg-red-700': themeStore.isDarkMode}"
+                class="mt-4 text-white py-2 px-4 rounded-full hover:bg-red-700 shadow-md">
                 Clear Completed Tasks
             </button>
         </div>
-        <p v-else class="mt-4">No tasks yet. Add one above!</p>
+        <p v-else 
+            :class="{'text-black': !themeStore.isDarkMode, 'text-white': themeStore.isDarkMode}" 
+            class="mt-4"
+            >
+            No tasks yet. Add one above!
+        </p>
     </div>
 </template>
 
 <script>
 import Task from "./Task.vue";
+import { useThemeStore } from "@/stores/theme";
 
 export default {
     name: "Main",
@@ -51,7 +70,12 @@ export default {
             newTask: "", // 存儲新任務的輸入內容
         };
     },
-
+    setup() {
+        const themeStore = useThemeStore();
+        return {
+            themeStore,
+        };
+    },
     computed: {
         hasCompletedTasks() {
             return this.tasks.some(task => task.completed);
@@ -96,6 +120,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-</style>

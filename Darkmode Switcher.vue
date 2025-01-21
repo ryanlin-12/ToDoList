@@ -1,18 +1,21 @@
 <template>
   <div>
-    <UToggle 
-      :model-value="modelValue"
-      @update:model-value="$emit('update:modelValue', $event)"
-      label="Dark Mode" 
-      active-text="On" 
-      inactive-text="Off" 
+    <UToggle
+      v-model="themeStore.isDarkMode"
+      label="Dark Mode"
+      active-text="On"
+      inactive-text="Off"
     />
   </div>
 </template>
 
 <script>
+import { useThemeStore } from '@/stores/theme'
+
 export default {
-  props: ['modelValue'],
-  emits: ['update:modelValue']
+  setup() {
+    const themeStore = useThemeStore()
+    return { themeStore }
+  }
 }
 </script>

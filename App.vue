@@ -1,7 +1,14 @@
 <template>
-  <div id="app" :class="{ 'dark-mode': darkMode }">
+  <div 
+    class="font-sans text-center text-gray-800 m-0 p-0 min-h-screen transition-all duration-300 ease"
+    :class="{
+      'bg-white': !themeStore.isDarkMode,
+      'bg-gray-800': themeStore.isDarkMode,
+      'text-black': !themeStore.isDarkMode,
+      'text-white': themeStore.isDarkMode
+    }">
     <header>
-      <Header v-model="darkMode" />
+      <Header />
     </header>
 
     <main>
@@ -10,74 +17,38 @@
     </main>
 
     <footer>
-      <p>&copy; 2025 My Nuxt.js App</p>
+      <Footer />
     </footer>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { useThemeStore } from "@/stores/theme";
 import Main from "./Main.vue";
 import Header from "./Header.vue";
+import Footer from "./Footer.vue";
 
 export default {
   name: "App",
   components: {
     Main,
     Header,
+    Footer,
   },
   setup() {
-    const darkMode = ref(false);
-    return { 
-      darkMode 
-    }
-  }
+    const themeStore = useThemeStore();
+    return {
+      themeStore,
+    };
+  },
 };
 </script>
 
 <style>
-#app {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  color: #333;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  transition: all 0.3s ease;
-}
-
-/* 亮色模式（默認） */
-#app {
-  background-color: white;
-  color: #333;
-}
-
-/* 深色模式 */
-#app.dark-mode {
-  background-color: #1a1a1a;
-  color: #fff;
-}
-
-#app.dark-mode header {
-  background-color: #2c2c2c;
-}
-
-#app.dark-mode footer {
+/* #app.dark-mode footer {
   background-color: #2c2c2c;
   color: #fff;
 }
-
-#app.dark-mode main {
-  background-color: #1a1a1a;
-}
-
-header {
-  background-color: #007bff;
-  color: white;
-  padding: 1rem;
-  transition: background-color 0.3s ease;
-}
-
 footer {
   background-color: #f8f9fa;
   padding: 1rem;
@@ -85,11 +56,5 @@ footer {
   bottom: 0;
   width: 100%;
   transition: background-color 0.3s ease;
-}
-
-main {
-  margin: 0 30%;
-  padding: 1rem;
-  transition: background-color 0.3s ease;
-}
+} */
 </style>
