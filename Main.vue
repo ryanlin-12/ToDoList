@@ -15,13 +15,28 @@
                 v-model="newTask" 
                 @keyup.enter="addTask" 
                 placeholder="Enter a new task"
-                :class="{'bg-gray-200': !themeStore.isDarkMode, 'bg-gray-700 text-white placeholder-gray-400': themeStore.isDarkMode}"
-                class="shadow-md p-2 mr-2 rounded-full focus:outline-none w-3/4"
+                :class="{
+                    'bg-gray-200': !themeStore.isDarkMode, 
+                    'bg-gray-700 text-white placeholder-gray-400': themeStore.isDarkMode
+                }"
+                class="shadow-md p-5 mr-2 rounded-full focus:outline-none w-1/3 h-10"
+            />
+            <input 
+                type="datetime-local"
+                v-model="newDueDate"
+                class="shadow-md p-5 mr-2 rounded-full focus:outline-none w-1/3 h-10"
+                :class="{
+                'bg-gray-200 text-black': !themeStore.isDarkMode,
+                'bg-gray-700 text-white': themeStore.isDarkMode
+                }"
             />
             <button 
                 @click="addTask" 
-                :class="{'bg-blue-500': !themeStore.isDarkMode, 'bg-blue-700': themeStore.isDarkMode}"
-                class="shadow-md p-2 text-white rounded-full hover:bg-blue-700 w-1/5">
+                :class="{
+                    'bg-blue-500': !themeStore.isDarkMode, 
+                    'bg-blue-700': themeStore.isDarkMode
+                }"
+                class="shadow-md p-2 text-white rounded-full hover:bg-blue-700 w-1/6">
                 Add Task
             </button>
         </div>
@@ -68,6 +83,7 @@ export default {
         return {
             tasks: [], // 初始化為空的任務列表
             newTask: "", // 存儲新任務的輸入內容
+            newDueDate: "", // 存儲新任務的截止日期
         };
     },
     setup() {
@@ -89,8 +105,11 @@ export default {
                 id: Date.now(),
                 title: this.newTask.trim(),
                 completed: false,
+                dueDate: this.newDueDate || null, // 如果沒有輸入截止日期，則設置為 null
             });
+            // 清空輸入框
             this.newTask = "";
+            this.newDueDate = "";
         },
         toggleTask(taskToToggle) {
             // 修改 this.tasks 中的任務完成狀態

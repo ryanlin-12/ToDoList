@@ -9,19 +9,29 @@
                 type="checkbox" 
                 :checked="task.completed" 
                 @change="toggleTask" 
-                class="mr-2 w-5 h-5"
+                class="mr-2 w-5 h-5 cursor-pointer"
             >
-            <span 
-                class="text-lg"
-                :class="{ 
-                    'text-gray-400': task.completed && !themeStore.isDarkMode,
-                    'text-gray-500': task.completed && themeStore.isDarkMode,
-                    'text-black': !task.completed && !themeStore.isDarkMode,
-                    'text-white': !task.completed && themeStore.isDarkMode
-                }" 
-                >
-                {{ task.title }}
-            </span>
+            <div>
+                <span 
+                    class="text-lg flex items-center"
+                    :class="{ 
+                        'text-gray-400': task.completed && !themeStore.isDarkMode,
+                        'text-gray-500': task.completed && themeStore.isDarkMode,
+                        'text-black': !task.completed && !themeStore.isDarkMode,
+                        'text-white': !task.completed && themeStore.isDarkMode
+                    }" 
+                    >
+                    {{ task.title }}
+                </span>
+                <!-- 顯示到期時間 -->
+                <div v-if="task.dueDate" class="text-sm mt-1 text-left"
+                    :class="{
+                        'text-gray-500': !themeStore.isDarkMode,
+                        'text-gray-300': themeStore.isDarkMode
+                    }">
+                    Due: {{ formatDate(task.dueDate) }}
+                </div>
+            </div>
         </div>
         <button 
             @click="removeTask" 
@@ -59,6 +69,10 @@ export default {
         },
         removeTask() {
             this.$emit('remove-task', this.task);
+        },
+        formatDate(dateStr) {
+        const date = new Date(dateStr);
+        return date.toLocaleString(); // 你也可以客製化格式，例如 toLocaleDateString()
         }
     }
 }
